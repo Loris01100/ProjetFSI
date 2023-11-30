@@ -2,9 +2,9 @@
 
 class TypeBilan extends Bilan
 {
-    private $idTypeBilan;
-    private $type1;
-    private $type2;
+    private int $idTypeBilan;
+    private bool $type1;
+    private bool $type2;
 
     /**
      * @param $idTypeBilan
