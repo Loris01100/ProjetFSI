@@ -1,5 +1,5 @@
 <?php
-
+namespace DAO;
 class BilanDAO
 {
     private $pdo;

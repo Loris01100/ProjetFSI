@@ -1,13 +1,13 @@
 <?php
-
+namespace BO;
 class Bilan
 {
-    private $idBilan;
-    private $date;
-    private $noteEntreprise;
-    private $noteDossier;
-    private $noteOral;
-    private $sujetMemoire;
+    private int $idBilan;
+    private date $date;
+    private int $noteEntreprise;
+    private int $noteDossier;
+    private int $noteOral;
+    private string $sujetMemoire;
 
     /**
      * @param $idBilan
