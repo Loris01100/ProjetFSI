@@ -1,5 +1,5 @@
 <?php
-
+namespace BO;
 class TypeBilan extends Bilan
 {
     private int $idTypeBilan;

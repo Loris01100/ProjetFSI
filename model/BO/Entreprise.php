@@ -1,10 +1,10 @@
 <?php
-
+namespace BO;
 class Entreprise
 {
-    private $idEntreprise;
-    private $nomEntreprise;
-    private $adresseEntreprise;
+    private int $idEntreprise;
+    private string $nomEntreprise;
+    private string $adresseEntreprise;
 
     /**
      * @param $idEntreprise

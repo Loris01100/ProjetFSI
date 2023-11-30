@@ -1,10 +1,10 @@
 <?php
-
+namespace BO;
 class Section
 {
-    private $idSection;
-    private $nomSection;
-    private $nbEleve;
+    private int $idSection;
+    private string $nomSection;
+    private int $nbEleve;
 
     /**
      * @param $idSection
