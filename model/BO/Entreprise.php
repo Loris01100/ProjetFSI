@@ -1,5 +1,5 @@
 <?php
-
+namespace DAO;
 class Entreprise
 {
     private int $idEntreprise;

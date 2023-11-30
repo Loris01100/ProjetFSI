@@ -1,5 +1,5 @@
 <?php
-
+namespace DAO;
 class Bilan
 {
     private int $idBilan;

@@ -1,5 +1,5 @@
 <?php
-
+namespace DAO;
 class TypeBilan extends Bilan
 {
     private int $idTypeBilan;

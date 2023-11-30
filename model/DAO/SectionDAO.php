@@ -1,5 +1,5 @@
 <?php
-
+namespace BO;
 class SectionDAO
 {
     private $pdo;

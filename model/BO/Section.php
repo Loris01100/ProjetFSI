@@ -1,5 +1,5 @@
 <?php
-
+namespace DAO;
 class Section
 {
     private int $idSection;
