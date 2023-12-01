@@ -1,30 +1,60 @@
 <?php
+
 namespace DAO;
+
+use BO\Utilisateur;
+use PDO;
 
 class UtilisateurDAO
 {
-    private $connexion;
+    private PDO $pdo;
 
-    public function __construct($connexion)
+    public function __construct(PDO $pdo)
     {
-        $this->connexion = $connexion;
+        $this->pdo = $pdo;
     }
 
-    public function add(Utilisateur $utilisateur)
+    public function create(Utilisateur $utilisateur)
     {
+        $query = "INSERT INTO Utilisateur (identifiant, mdpUtilisateur) VALUES (:identifiant, :mdp)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':identifiant', $utilisateur->getIdentifiant());
+        $statement->bindValue(':mdp', $utilisateur->getMdp());
+        $statement->execute();
 
+        return $this->pdo->lastInsertId();
     }
 
+    public function read(int $idUtilisateur)
+    {
+        $query = "SELECT idUtilisateur, identifiant, mdpUtilisateur FROM Utilisateur WHERE idUtilisateur = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idUtilisateur);
+        $statement->execute();
+
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Utilisateur($data['idUtilisateur'], $data['identifiant'], $data['mdpUtilisateur']);
+        }
+
+        return null;
+    }
 
     public function update(Utilisateur $utilisateur)
     {
-
+        $query = "UPDATE Utilisateur SET identifiant = :identifiant, mdpUtilisateur = :mdp WHERE idUtilisateur = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':identifiant', $utilisateur->getIdentifiant());
+        $statement->bindValue(':mdp', $utilisateur->getMdp());
+        $statement->bindValue(':id', $utilisateur->getIdUtilisateur());
+        $statement->execute();
     }
 
-    public function delete($idUtilisateur)
+    public function delete(int $idUtilisateur)
     {
-
+        $query = "DELETE FROM Utilisateur WHERE idUtilisateur = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idUtilisateur);
+        $statement->execute();
     }
-
-
 }
