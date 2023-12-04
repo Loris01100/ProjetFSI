@@ -57,4 +57,35 @@ class UtilisateurDAO
         $statement->bindValue(':id', $idUtilisateur);
         $statement->execute();
     }
+
+    public function getAll()
+    {
+        $query = "SELECT idUtilisateur, identifiant, mdpUtilisateur FROM Utilisateur";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $utilisateurs = [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $utilisateurs[] = new Utilisateur($row['idUtilisateur'], $row['identifiant'], $row['mdpUtilisateur']);
+        }
+
+        return $utilisateurs;
+    }
+
+    public function findById(int $idUtilisateur): ?Utilisateur
+    {
+        $query = "SELECT idUtilisateur, identifiant, mdpUtilisateur FROM Utilisateur WHERE idUtilisateur = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idUtilisateur);
+        $statement->execute();
+
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Utilisateur($data['idUtilisateur'], $data['identifiant'], $data['mdpUtilisateur']);
+        } else {
+            return null;
+        }
+    }
+
+
 }
