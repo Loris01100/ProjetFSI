@@ -4,21 +4,27 @@ use BO\Specialisation;
 use PDO;
 class SpecialisationDAO
 {
-    private $pdo;
+    private PDO $pdo;
 
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function getAllSpecialisation() {
-        $query = "SELECT * FROM specialisation";
-        $result = $this->pdo->query($query);
+    public function getAll()
+    {
+        $query = "SELECT * FROM Specialisation";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
 
-        if ($result !== false) {
-            return $result->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return []; // Retourne un tableau vide si aucune donnée n'est récupérée
+        $ets = [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $ets[] = new Specialisation(
+                $row['idSpe'],
+                $row['nomSpe'],
+            );
         }
+
+        return $ets;
     }
 }

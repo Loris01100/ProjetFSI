@@ -5,21 +5,27 @@ use PDO;
 
 class ClasseDao
 {
-    private $pdo;
+    private PDO $pdo;
 
     public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function getAllClasse() {
-        $query = "SELECT * FROM classe";
-        $result = $this->pdo->query($query);
+    public function getAll()
+    {
+        $query = "SELECT * FROM Classe";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
 
-        if ($result !== false) {
-            return $result->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return []; // Retourne un tableau vide si aucune donnée n'est récupérée
+        $cla = [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $cla[] = new Classe(
+                $row['idClasse'],
+                $row['nomClasse'],
+            );
         }
+
+        return $cla;
     }
 }

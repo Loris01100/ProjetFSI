@@ -10,18 +10,22 @@ use DAO\BilanUnDao;
 use BO\Bilandeux;
 use DAO\BilanDeuxDao;
 
-$bilan = new Bilanun(1, 15, 14, 14, 14, 'IA');
-var_dump($bilan);
+$bilanUnDao = new BilanUnDao($pdo);
 
-$bilan = new Bilandeux(1, 15, 14, 14, 14, 'IA');
-var_dump($bilan);
+$bilanDeuxDao = new BilanDeuxDao($pdo);
 
-
+$bilan1 = new Bilanun(1, 15, 14, 14, 14, 'IA');
 
 
-$db = connexionBdd($infoBdd);
-dump_var($db, DUMP, 'Objet PDO:');
+$bilan2 = new Bilandeux(1, 15, 14, 14, 14, 'IA');
 
+$allBil1 = $bilanUnDao->getAll();
+echo "Bilan 1 " . count($allBil1) . " Bilan 1.\n";
+
+$allBil2 = $bilanDeuxDao->getAll();
+echo "Bilan 2 " . count($allBil2) . " Bilan 2.\n";
+
+<<<<<<< Updated upstream
 if (!is_null($db)) {
 
     $repo = new DAO\BilanUnDao($db);
@@ -59,3 +63,7 @@ if (!is_null($db)) {
         echo "Erreur: " . $e->getMessage();
     }
 }
+=======
+$bilan1Id = $bilanUnDao->addBilanUn($bilan1);
+echo "Entreprise: $bilan1Id\n";
+>>>>>>> Stashed changes
