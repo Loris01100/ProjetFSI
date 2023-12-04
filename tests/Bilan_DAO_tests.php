@@ -35,14 +35,14 @@ if (!is_null($db)) {
     dump_var($res, DUMP, 'résultat:');
 
     try {
-        // Création de la connexion à la base de données
+
         $pdo = new PDO('mysql:host=localhost;dbname=projetfsi', 'root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Création de l'objet UserDAO
+
         $Bilandeuxdao = new BilanDeuxDao($pdo);
 
-        // Ajout d'un nouvel utilisateur
+
         $noteO = "Nouvel Utilisateur";
         $noteD = "nouvel@example.com";
         $dateB = "25 JANVIER 2023";
