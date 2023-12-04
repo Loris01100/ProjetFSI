@@ -3,7 +3,7 @@ namespace BO;
 class Bilan
 {
     private int $idBilan;
-    private date $date;
+    private string $date;
     private int $noteEntreprise;
     private int $noteDossier;
     private int $noteOral;

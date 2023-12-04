@@ -2,68 +2,76 @@
 namespace BO;
 class Entreprise
 {
-    private int $idEntreprise;
-    private string $nomEntreprise;
-    private string $adresseEntreprise;
+    private int $idEts;
+    private string $nomEts;
+    private string $adresseEts;
+    private string $cpEts;
+    private string $villeEts;
 
     /**
-     * @param $idEntreprise
-     * @param $nomEntreprise
-     * @param $adresseEntreprise
+     * @param int $idEts
+     * @param string $nomEts
+     * @param string $adresseEts
+     * @param string $cpEts
+     * @param string $villeEts
      */
-    public function __construct($idEntreprise, $nomEntreprise, $adresseEntreprise)
+    public function __construct(int $idEts, string $nomEts, string $adresseEts, string $cpEts, string $villeEts)
     {
-        $this->idEntreprise = $idEntreprise;
-        $this->nomEntreprise = $nomEntreprise;
-        $this->adresseEntreprise = $adresseEntreprise;
+        $this->idEts = $idEts;
+        $this->nomEts = $nomEts;
+        $this->adresseEts = $adresseEts;
+        $this->cpEts = $cpEts;
+        $this->villeEts = $villeEts;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdEntreprise()
+    public function getIdEts(): int
     {
-        return $this->idEntreprise;
+        return $this->idEts;
     }
 
-    /**
-     * @param mixed $idEntreprise
-     */
-    public function setIdEntreprise($idEntreprise)
+    public function setIdEts(int $idEts): void
     {
-        $this->idEntreprise = $idEntreprise;
+        $this->idEts = $idEts;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNomEntreprise()
+    public function getNomEts(): string
     {
-        return $this->nomEntreprise;
+        return $this->nomEts;
     }
 
-    /**
-     * @param mixed $nomEntreprise
-     */
-    public function setNomEntreprise($nomEntreprise)
+    public function setNomEts(string $nomEts): void
     {
-        $this->nomEntreprise = $nomEntreprise;
+        $this->nomEts = $nomEts;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAdresseEntreprise()
+    public function getAdresseEts(): string
     {
-        return $this->adresseEntreprise;
+        return $this->adresseEts;
     }
 
-    /**
-     * @param mixed $adresseEntreprise
-     */
-    public function setAdresseEntreprise($adresseEntreprise)
+    public function setAdresseEts(string $adresseEts): void
     {
-        $this->adresseEntreprise = $adresseEntreprise;
+        $this->adresseEts = $adresseEts;
+    }
+
+    public function getCpEts(): string
+    {
+        return $this->cpEts;
+    }
+
+    public function setCpEts(string $cpEts): void
+    {
+        $this->cpEts = $cpEts;
+    }
+
+    public function getVilleEts(): string
+    {
+        return $this->villeEts;
+    }
+
+    public function setVilleEts(string $villeEts): void
+    {
+        $this->villeEts = $villeEts;
     }
 
 }
