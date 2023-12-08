@@ -2,28 +2,31 @@
 
 namespace BO;
 
+
+
+
 class Bilanun
 {
     private int $idBilanUn;
     private int $noteEts;
-    private int $noteBilanUn;
-    private string $noteDossierUn;
-    private string $noteOralUn;
+    private \DateTime $dateBilanUn;
+    private int $noteDossierUn;
+    private int $noteOralUn;
     private string $rqBilanUn;
 
     /**
      * @param int $idBilanUn
      * @param int $noteEts
-     * @param int $noteBilanUn
-     * @param string $noteDossierUn
-     * @param string $noteOralUn
+     * @param \DateTime $dateBilanUn
+     * @param int $noteDossierUn
+     * @param int $noteOralUn
      * @param string $rqBilanUn
      */
-    public function __construct(int $idBilanUn, int $noteEts, int $noteBilanUn, string $noteDossierUn, string $noteOralUn, string $rqBilanUn)
+    public function __construct(int $idBilanUn, int $noteEts, \DateTime $dateBilanUn, int $noteDossierUn, int $noteOralUn, string $rqBilanUn)
     {
         $this->idBilanUn = $idBilanUn;
         $this->noteEts = $noteEts;
-        $this->noteBilanUn = $noteBilanUn;
+        $this->dateBilanUn = $dateBilanUn;
         $this->noteDossierUn = $noteDossierUn;
         $this->noteOralUn = $noteOralUn;
         $this->rqBilanUn = $rqBilanUn;
@@ -49,17 +52,17 @@ class Bilanun
         $this->noteEts = $noteEts;
     }
 
-    public function getNoteBilanUn(): int
+    public function getDateBilanUn(): \DateTime
     {
-        return $this->noteBilanUn;
+        return $this->dateBilanUn;
     }
 
-    public function setNoteBilanUn(int $noteBilanUn): void
+    public function setDateBilanUn(\DateTime $dateBilanUn): void
     {
-        $this->noteBilanUn = $noteBilanUn;
+        $this->dateBilanUn = $dateBilanUn;
     }
 
-    public function getNoteDossierUn(): string
+    public function getNoteDossierUn(): int
     {
         return $this->noteDossierUn;
     }
@@ -69,7 +72,7 @@ class Bilanun
         $this->noteDossierUn = $noteDossierUn;
     }
 
-    public function getNoteOralUn(): string
+    public function getNoteOralUn(): int
     {
         return $this->noteOralUn;
     }

@@ -7,10 +7,13 @@ require_once '../config/appConfig.php';
 use BO\Classe;
 use DAO\ClasseDao;
 
-$bilan = new Classe(1, "2SIO");
+$classe = new Classe(1, "2SIO");
 
 $classeDao = new ClasseDao($pdo);
 
 $allCla = $classeDao->getAll();
 echo "Classe " . count($allCla) . " Classe.\n";
+
+$classeId = $classeDao->addClasse($classe);
+echo "Classe ajouter : $classeId\n";
 

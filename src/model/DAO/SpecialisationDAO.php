@@ -27,4 +27,14 @@ class SpecialisationDAO
 
         return $ets;
     }
+
+    public function addSpecialisation(Specialisation $spe)
+    {
+        $query = "INSERT INTO Specialisation (nomSpe) VALUES (:nomS)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':nomC', $spe->getNomSpe());
+        $statement->execute();
+
+        return $this->pdo->lastInsertId();
+    }
 }

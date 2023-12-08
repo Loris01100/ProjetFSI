@@ -20,6 +20,5 @@ echo "Eleve modifié.\n";
 $allEts = $entrepriseDao->getAll();
 echo "Entreprise " . count($allEts) . " Entreprise.\n";
 
-
 $entrepriseDao->deleteEts($entrepriseId);
 echo "Eleve supprimé.\n";

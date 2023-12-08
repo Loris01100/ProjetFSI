@@ -14,10 +14,14 @@ $bilanUnDao = new BilanUnDao($pdo);
 
 $bilanDeuxDao = new BilanDeuxDao($pdo);
 
-$bilan1 = new Bilanun(1, 15, 14, 14, 14, 'IA');
+$dateBilanUn = new \DateTime();
+$dateBilanUn->setDate(2023,05,15);
+
+$bilan1 = new Bilanun(1, 15, $dateBilanUn, 14, 14, 'IA');
 
 
-$bilan2 = new Bilandeux(1, 15, 14, 14, 14, 'IA');
+$bilan2 = new Bilandeux(1, 15, 14, $dateBilanUn, 14, 'IA');
+
 
 $allBil1 = $bilanUnDao->getAll();
 echo "Bilan 1 " . count($allBil1) . " Bilan 1.\n";
@@ -25,45 +29,18 @@ echo "Bilan 1 " . count($allBil1) . " Bilan 1.\n";
 $allBil2 = $bilanDeuxDao->getAll();
 echo "Bilan 2 " . count($allBil2) . " Bilan 2.\n";
 
-<<<<<<< Updated upstream
-if (!is_null($db)) {
 
-    $repo = new DAO\BilanUnDao($db);
-    echo '<h1>Liste des Bilans 1</h1>';
-    $res = $repo->getAllBilanun();
-    dump_var($res, DUMP, 'résultat:');
+$bil1Id = $bilanUnDao->addBilanUn($bilan1);
+echo "Bilan 1 ajouter: $bil1Id\n";
 
-    $repo = new DAO\BilanDeuxDao($db);
-    echo '<h1>Liste des Bilans 2</h1>';
-    $res = $repo->getAllBilandeux();
-    dump_var($res, DUMP, 'résultat:');
+$bil2Id = $bilanDeuxDao->addBilanDeux($bilan2);
+echo "Bilan 2 ajouter: $bil1Id\n";
 
-    try {
+$bilan1->setNoteEts('Updated note');
+$bilanUnDao->updateBilanUn($bilan1);
+echo "Eleve modifié.\n";
 
-        $pdo = new PDO('mysql:host=localhost;dbname=projetfsi', 'root', '');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$bilan2->setNoteDossierDeux('Updated note');
+$bilanDeuxDao->updateBilanDeux($bilan2);
+echo "Eleve modifié.\n";
 
-
-        $Bilandeuxdao = new BilanDeuxDao($pdo);
-
-
-        $noteO = "Nouvel Utilisateur";
-        $noteD = "nouvel@example.com";
-        $dateB = "25 JANVIER 2023";
-        $rqB = "Très bon";
-        $sM = "IA";
-        $isBilandeuxadd = $Bilandeuxdao->addBilanDeux($noteO, $noteD, $dateB, $rqB, $sM);
-
-        if ($isBilandeuxadd) {
-            echo "Utilisateur ajouté avec succès.";
-        } else {
-            echo "Erreur lors de l'ajout de l'utilisateur.";
-        }
-    } catch (PDOException $e) {
-        echo "Erreur: " . $e->getMessage();
-    }
-}
-=======
-$bilan1Id = $bilanUnDao->addBilanUn($bilan1);
-echo "Entreprise: $bilan1Id\n";
->>>>>>> Stashed changes

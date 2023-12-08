@@ -7,7 +7,7 @@ class Bilandeux
     private int $idBilanDeux;
     private int $noteOralDeux;
     private int $noteDossierDeux;
-    private string $dateBilanDeux;
+    private \DateTime $dateBilanDeux;
     private string $rqBilanDeux;
     private string $sujetMemoire;
 
@@ -19,7 +19,7 @@ class Bilandeux
      * @param string $rqBilanDeux
      * @param string $sujetMemoire
      */
-    public function __construct(int $idBilanDeux, int $noteOralDeux, int $noteDossierDeux, string $dateBilanDeux, string $rqBilanDeux, string $sujetMemoire)
+    public function __construct(int $idBilanDeux, int $noteOralDeux, int $noteDossierDeux, \DateTime $dateBilanDeux, string $rqBilanDeux, string $sujetMemoire)
     {
         $this->idBilanDeux = $idBilanDeux;
         $this->noteOralDeux = $noteOralDeux;
@@ -59,12 +59,12 @@ class Bilandeux
         $this->noteDossierDeux = $noteDossierDeux;
     }
 
-    public function getDateBilanDeux(): string
+    public function getDateBilanDeux(): \DateTime
     {
         return $this->dateBilanDeux;
     }
 
-    public function setDateBilanDeux(string $dateBilanDeux): void
+    public function setDateBilanDeux(\DateTime $dateBilanDeux): void
     {
         $this->dateBilanDeux = $dateBilanDeux;
     }

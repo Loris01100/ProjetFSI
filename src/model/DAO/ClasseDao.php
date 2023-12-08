@@ -28,4 +28,13 @@ class ClasseDao
 
         return $cla;
     }
+    public function addClasse(Classe $classe)
+    {
+        $query = "INSERT INTO Classe (nomClasse) VALUES (:nomC)";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':nomC', $classe->getNomClasse());
+        $statement->execute();
+
+        return $this->pdo->lastInsertId();
+    }
 }
