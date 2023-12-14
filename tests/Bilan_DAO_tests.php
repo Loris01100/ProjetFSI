@@ -15,9 +15,9 @@ $bilanUnDao = new BilanUnDao($pdo);
 $bilanDeuxDao = new BilanDeuxDao($pdo);
 
 $dateBilanUn = new \DateTime();
-$dateBilanUn->setDate(2023,05,15);
+$dateBilanUn->format('Y-m-d H:i:s');
 
-$bilan1 = new Bilanun(1, 15, $dateBilanUn, 14, 14, 'IA');
+$bilan1 = new Bilanun(1, 15, $dateBilanUn , 14, 14, 'IA');
 
 
 $bilan2 = new Bilandeux(1, 15, 14, $dateBilanUn, 14, 'IA');

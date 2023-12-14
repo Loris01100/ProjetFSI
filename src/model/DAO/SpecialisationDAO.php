@@ -32,7 +32,7 @@ class SpecialisationDAO
     {
         $query = "INSERT INTO Specialisation (nomSpe) VALUES (:nomS)";
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':nomC', $spe->getNomSpe());
+        $statement->bindValue(':nomS', $spe->getNomSpe());
         $statement->execute();
 
         return $this->pdo->lastInsertId();

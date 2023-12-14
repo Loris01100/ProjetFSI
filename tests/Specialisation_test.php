@@ -14,4 +14,4 @@ $allSpe = $specialisationDao->getAll();
 echo "Specialisation " . count($allSpe) . " Specialisation.\n";
 
 $speId = $specialisationDao->addSpecialisation($specialisation);
-echo "Entreprise: $speId\n";
+echo "Specialisation: $speId\n";

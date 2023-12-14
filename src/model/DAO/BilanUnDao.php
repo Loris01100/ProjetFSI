@@ -1,6 +1,7 @@
 <?php
 namespace DAO;
 use BO\Bilanun;
+use DateTime;
 use PDO;
 
 class BilanUnDao
@@ -38,10 +39,13 @@ class BilanUnDao
 
     public function addBilanUn(Bilanun $bilan1)
     {
+        $dateBilanUn = $bilan1->getDateBilanUn();
+
+        //var_dump($dateBilanUn);
         $query = "INSERT INTO BilanUn (noteEts, dateBilanUn, noteDossierUn, noteOralUn, rqBilanUn) VALUES (:noteEt, :dateBUn, :noteDoUn, :noteOralU, :rqBiUn)";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':noteEt', $bilan1->getNoteEts());
-        $statement->bindValue(':dateBUn', $bilan1->getDateBilanUn());
+        $statement->bindValue(':dateBUn', $dateBilanUn->format('Y-m-d H:i:s'),PDO::PARAM_STR);
         $statement->bindValue(':noteDoUn', $bilan1->getNoteDossierUn());
         $statement->bindValue(':noteOralU', $bilan1->getNoteOralUn());
         $statement->bindValue(':rqBilUn', $bilan1->getRqBilanUn());
@@ -52,10 +56,12 @@ class BilanUnDao
 
     public function updateBilanUn(Bilanun $bilan1)
     {
+        $dateBilanUn = $bilan1->getDateBilanUn();
+
         $query = "UPDATE Bilanun SET noteEts = :noteE, dateBilanUn = :dateB, noteDossierUn = :noteD, noteOralUn = :noteO, rqBilanUn = :rqB WHERE idBilanUn = :idB";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':noteE', $bilan1->getNoteEts());
-        $statement->bindValue(':dateB', $bilan1->getDateBilanUn());
+        $statement->bindValue(':dateBUn', $dateBilanUn->format('Y-m-d H:i:s'),PDO::PARAM_STR);
         $statement->bindValue(':noteD', $bilan1->getNoteDossierUn());
         $statement->bindValue(':noteO', $bilan1->getNoteOralUn());
         $statement->bindValue(':rqB', $bilan1->getRqBilanUn());
