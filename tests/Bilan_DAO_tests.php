@@ -3,7 +3,7 @@
 define('DUMP', true);
 
 require_once '../config/appConfig.php';
-require_once '../src/fonctionsUtiles.php';
+require_once '../config/globalConfig.php';
 
 use BO\Bilanun;
 use DAO\BilanUnDao;

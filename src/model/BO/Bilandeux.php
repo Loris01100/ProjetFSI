@@ -5,21 +5,13 @@ namespace BO;
 class Bilandeux
 {
     private int $idBilanDeux;
-    private int $noteOralDeux;
-    private int $noteDossierDeux;
+    private ?float $noteOralDeux;
+    private ?float $noteDossierDeux;
     private \DateTime $dateBilanDeux;
-    private string $rqBilanDeux;
-    private string $sujetMemoire;
+    private ?string $rqBilanDeux;
+    private ?string $sujetMemoire;
 
-    /**
-     * @param int $idBilanDeux
-     * @param int $noteOralDeux
-     * @param int $noteDossierDeux
-     * @param string $dateBilanDeux
-     * @param string $rqBilanDeux
-     * @param string $sujetMemoire
-     */
-    public function __construct(int $idBilanDeux, int $noteOralDeux, int $noteDossierDeux, \DateTime $dateBilanDeux, string $rqBilanDeux, string $sujetMemoire)
+    public function __construct(int $idBilanDeux, ?float $noteOralDeux, ?float $noteDossierDeux, \DateTime $dateBilanDeux, ?string $rqBilanDeux, ?string $sujetMemoire)
     {
         $this->idBilanDeux = $idBilanDeux;
         $this->noteOralDeux = $noteOralDeux;

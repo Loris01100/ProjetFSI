@@ -8,21 +8,14 @@ namespace BO;
 class Bilanun
 {
     private int $idBilanUn;
-    private int $noteEts;
+    private ?float $noteEts;
     private \DateTime $dateBilanUn;
-    private int $noteDossierUn;
-    private int $noteOralUn;
-    private string $rqBilanUn;
+    private ?float $noteDossierUn;
+    private ?float $noteOralUn;
+    private ?string $rqBilanUn;
 
-    /**
-     * @param int $idBilanUn
-     * @param int $noteEts
-     * @param \DateTime $dateBilanUn
-     * @param int $noteDossierUn
-     * @param int $noteOralUn
-     * @param string $rqBilanUn
-     */
-    public function __construct(int $idBilanUn, int $noteEts, \DateTime $dateBilanUn, int $noteDossierUn, int $noteOralUn, string $rqBilanUn)
+
+    public function __construct(int $idBilanUn, ?float $noteEts, \DateTime $dateBilanUn, ?float $noteDossierUn, ?float $noteOralUn, ?string $rqBilanUn)
     {
         $this->idBilanUn = $idBilanUn;
         $this->noteEts = $noteEts;
