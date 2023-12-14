@@ -44,13 +44,13 @@ class BilanDeuxDao
     {
         $dateBilanDeux = $bilan2->getDateBilanDeux();
 
-        $query = "INSERT INTO BilanUn (noteOralDeux, noteDossierDeux, dateBilanDeux, rqBilanDeux, sujetMemoire) VALUES (:noteO2, :noteD2, :dateB2, :rqB2, :sM2)";
+        $query = "INSERT INTO BilanDeux (noteOralDeux, noteDossierDeux, dateBilanDeux, rqBilanDeux, sujetMemoire) VALUES (:noteO2, :noteD2, :dateBDeux, :rqB2, :sM2)";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':noteO2', $bilan2->getNoteOralDeux());
         $statement->bindValue(':noteD2', $bilan2->getNoteDossierDeux());
-        $statement->bindValue(':dateBUn', $dateBilanDeux->format('Y-m-d H:i:s'),PDO::PARAM_STR);
-        $statement->bindValue(':rq2', $bilan2->getRqBilanDeux());
-        $statement->bindValue(':sm2', $bilan2->getSujetMemoire());
+        $statement->bindValue(':dateBDeux', $dateBilanDeux->format('Y-m-d H:i:s'),PDO::PARAM_STR);
+        $statement->bindValue(':rqB2', $bilan2->getRqBilanDeux());
+        $statement->bindValue(':sM2', $bilan2->getSujetMemoire());
         $statement->execute();
 
         return $this->pdo->lastInsertId();
@@ -60,14 +60,13 @@ class BilanDeuxDao
     {
         $dateBilanDeux = $bilan2->getDateBilanDeux();
 
-        $query = "UPDATE Bilandeux SET noteOralDeux = :noteO, noteDossierDeux = :noteD, dateBilandDeux = :dateB2, rqBilanDeux = :rqB2, sujetMemoire = :sM WHERE idBilanDeux = :idB2";
+        $query = "UPDATE BilanDeux SET noteOralDeux = :noteO, noteDossierDeux = :noteD, dateBilanDeux = :dateB2, rqBilanDeux = :rqB2, sujetMemoire = :sM WHERE idBilanDeux = :idB2";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':noteO', $bilan2->getNoteOralDeux());
         $statement->bindValue(':noteD', $bilan2->getNoteDossierDeux());
-        $statement->bindValue(':dateBUn', $dateBilanDeux->format('Y-m-d H:i:s'),PDO::PARAM_STR);
+        $statement->bindValue(':dateB2', $dateBilanDeux->format('Y-m-d H:i:s'),PDO::PARAM_STR);
         $statement->bindValue(':rqB2', $bilan2->getRqBilanDeux());
         $statement->bindValue(':sM', $bilan2->getSujetMemoire());
-        // You should bind more parameters here as needed
         $statement->bindValue(':idB2', $bilan2->getIdBilanDeux());
         $statement->execute();
     }

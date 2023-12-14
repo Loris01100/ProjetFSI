@@ -36,11 +36,11 @@ echo "Bilan 1 ajouter: $bil1Id\n";
 $bil2Id = $bilanDeuxDao->addBilanDeux($bilan2);
 echo "Bilan 2 ajouter: $bil1Id\n";
 
-$bilan1->setNoteEts('Updated note');
+$bilan1->setNoteEts(12);
 $bilanUnDao->updateBilanUn($bilan1);
 echo "Eleve modifié.\n";
 
-$bilan2->setNoteDossierDeux('Updated note');
+$bilan2->setNoteDossierDeux(12);
 $bilanDeuxDao->updateBilanDeux($bilan2);
 echo "Eleve modifié.\n";
 
