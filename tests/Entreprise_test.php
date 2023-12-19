@@ -15,10 +15,10 @@ echo "Entreprise: $entrepriseId\n";
 
 $entreprise->setCpEts('69009');
 $entrepriseDao->updateEntrerpise($entreprise);
-echo "Eleve modifié.\n";
+echo "Entreprise modifié.\n";
 
 $allEts = $entrepriseDao->getAll();
 echo "Entreprise " . count($allEts) . " Entreprise.\n";
 
 $entrepriseDao->deleteEts($entrepriseId);
-echo "Eleve supprimé.\n";
+echo "Entreprise supprimé.\n";

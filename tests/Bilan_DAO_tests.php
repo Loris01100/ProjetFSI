@@ -38,9 +38,9 @@ echo "Bilan 2 ajouter: $bil1Id\n";
 
 $bilan1->setNoteEts(12);
 $bilanUnDao->updateBilanUn($bilan1);
-echo "Eleve modifié.\n";
+echo "Bilan1 modifié.\n";
 
 $bilan2->setNoteDossierDeux(12);
 $bilanDeuxDao->updateBilanDeux($bilan2);
-echo "Eleve modifié.\n";
+echo "Bilan2 modifié.\n";
 
