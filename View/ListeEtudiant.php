@@ -53,6 +53,7 @@ use DAO\EleveDAO;
                             <th>Bilan 1</th>
                             <th>Bilan 2</th>
                             <th>Spécialisation</th>
+                            <th>Détail</a></th>
 
                         </tr>
                         </thead>
@@ -95,6 +96,7 @@ use DAO\EleveDAO;
                                             <td><?= $items['rqBilanUn']; ?></td>
                                             <td><?= $items['rqBilanDeux']; ?></td>
                                             <td><?= $items['nomSpe']; ?></td>
+                                            <td><a href="DétailEtudiant.php">Consulter</a></td>
                                         </tr>
                                         <?php
                                     }
