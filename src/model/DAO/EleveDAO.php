@@ -147,5 +147,31 @@ class EleveDAO
         return $eleves;
     }
 
+    public function read(int $idEleve)
+    {
+        $query = "SELECT * FROM Etudiant WHERE numEtu = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idEleve);
+        $statement->execute();
+
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            $eleve = new Eleve(
+                $data['numEtu'],
+                $data['nomEtu'],
+                $data['preEtu'],
+                0,
+                $data['mailEtu'],
+                ''
+            );
+
+
+            return $eleve;
+        }
+
+        return null;
+    }
+
+
 
 }

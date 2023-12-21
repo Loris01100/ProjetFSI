@@ -48,6 +48,7 @@ class TuteurDAO
                 $data['preTutEco'],
                 $data['telTutEco'],
                 $data['mailTutEco'],
+                $data['cheminPhoto'],
                 ''
             );
 

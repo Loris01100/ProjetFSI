@@ -12,7 +12,9 @@ class Tuteur extends Utilisateur
     private string $mailTuteur;
     private string $eleveTuteur;
 
-    public function __construct(int $idUtilisateur, string $identifiant, string $mdp, string $nomTuteur, string $prenomTuteur, string $telTuteur, string $mailTuteur, string $eleveTuteur)
+    private string $cheminPhoto;
+
+    public function __construct(int $idUtilisateur, string $identifiant, string $mdp, string $nomTuteur, string $prenomTuteur, string $telTuteur, string $mailTuteur, string $eleveTuteur, string $cheminPhoto)
     {
         parent::__construct($idUtilisateur, $identifiant, $mdp);
 
@@ -21,6 +23,7 @@ class Tuteur extends Utilisateur
         $this->telTuteur = $telTuteur;
         $this->mailTuteur = $mailTuteur;
         $this->eleveTuteur = $eleveTuteur;
+        $this->cheminPhoto = $cheminPhoto;
     }
 
 
@@ -74,5 +77,15 @@ class Tuteur extends Utilisateur
         $this->eleveTuteur = $eleveTuteur;
     }
 
-    // Vous pourriez ajouter d'autres méthodes spécifiques aux tuteurs ici
+    public function getCheminPhoto(): string
+    {
+        return $this->cheminPhoto;
+    }
+
+    public function setCheminPhoto(string $cheminPhoto): void
+    {
+        $this->cheminPhoto = $cheminPhoto;
+    }
+
+
 }
