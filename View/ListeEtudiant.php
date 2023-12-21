@@ -1,10 +1,7 @@
 <?php
-
 require_once '../config/appConfig.php';
-require_once '../src/model/DAO/EleveDAO.php';
-require_once '../config/globalConfig.php';
-
 use DAO\EleveDAO;
+
 ?>
 
 <!doctype html>
@@ -15,7 +12,7 @@ use DAO\EleveDAO;
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Liste des étudiants</title>
+    <title>Liste des élèves</title>
 </head>
 <body>
 
@@ -24,7 +21,7 @@ use DAO\EleveDAO;
         <div class="col-md-12">
             <div class="card mt-4">
                 <div class="card-header">
-                    <h4>Liste des étudiants</h4>
+                    <h4>Liste des élèves</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -32,8 +29,8 @@ use DAO\EleveDAO;
 
                             <form action="" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="soumettre" required value="<?php if(isset($_GET['soumettre'])){echo $_GET['soumettre']; } ?>" class="form-control" placeholder="Soumettre">
-                                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                                    <input type="text" name="Rechercher" required value="<?php if(isset($_GET['Rechercher'])){echo $_GET['Rechercher']; } ?>" class="form-control" placeholder="Rechercher">
+                                    <button type="submit" class="btn btn-primary">Rechercher</button>
                                 </div>
                             </form>
 
@@ -55,43 +52,62 @@ use DAO\EleveDAO;
                             <th>Bilan 1</th>
                             <th>Bilan 2</th>
                             <th>Spécialisation</th>
+                            <th></th>
 
                         </tr>
                         </thead>
                         <tbody>
                         <?php
+                        try {
+                            $dsn = "{$infoBdd['type']}:host={$infoBdd['host']};dbname={$infoBdd['dbname']};charset={$infoBdd['charset']}";
+                            $pdo = new PDO($dsn, $infoBdd['user'], $infoBdd['pass']);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                        if(isset($_GET['soumettre']))
-                        {
-                            $filtervalues = $_GET['soumettre'];
-                            $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe FROM Etudiant INNER JOIN Classe ON Etudiant.idClasse = Classe.idClasse INNER JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn INNER JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux INNER JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe WHERE CONCAT(Etudiant.nomEtu, Etudiant.preEtu, Etudiant.idClasse, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe) LIKE '%$filtervalues%'";
-                            $query_run = pdo_query($pdo, $query);
+                            if(isset($_GET['Rechercher'])) {
+                                $filtervalues = $_GET['Rechercher'];
+                                $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe 
+          FROM Etudiant 
+          LEFT JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
+          LEFT JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn 
+          LEFT JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux 
+          LEFT JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
+          WHERE CONCAT(
+              COALESCE(Etudiant.nomEtu, ''),
+              COALESCE(Etudiant.preEtu, ''),
+              COALESCE(Classe.nomClasse, ''),
+              COALESCE(bilanun.rqBilanUn, ''),
+              COALESCE(bilandeux.rqBilanDeux, ''),
+              COALESCE(Specialisation.nomSpe, '')
+          ) LIKE ?";
 
-                            if(mysqli_num_rows($query_run) > 0)
-                            {
-                                foreach($query_run as $items)
-                                {
+                                $statement = $pdo->prepare($query);
+                                $statement->execute(["%$filtervalues%"]);
+                                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                                if ($results && count($results) > 0) {
+                                    foreach ($results as $items) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $items['nomEtu']; ?></td>
+                                            <td><?= $items['preEtu']; ?></td>
+                                            <td><?= $items['nomClasse']; ?></td>
+                                            <td><?= $items['rqBilanUn']; ?></td>
+                                            <td><?= $items['rqBilanDeux']; ?></td>
+                                            <td><?= $items['nomSpe']; ?></td>
+                                            <td><a href="DétailEtudiant.php">Consulter</a></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
                                     <tr>
-                                        <td><?= $items['nomEtu']; ?></td>
-                                        <td><?= $items['preEtu']; ?></td>
-                                        <td><?= $items['nomClasse']; ?></td>
-                                        <td><?= $items['rqBilanUn']; ?></td>
-                                        <td><?= $items['rqBilanDeux']; ?></td>
-                                        <td><?= $items['nomSpe']; ?></td>
-
+                                        <td colspan="4">Aucun étudiant trouvé</td>
                                     </tr>
                                     <?php
                                 }
                             }
-                            else
-                            {
-                                ?>
-                                <tr>
-                                    <td colspan="4">Aucun étudiant trouvé</td>
-                                </tr>
-                                <?php
-                            }
+                        } catch (PDOException $e) {
+                            echo "Erreur de connexion : " . $e->getMessage();
                         }
                         ?>
                         </tbody>
