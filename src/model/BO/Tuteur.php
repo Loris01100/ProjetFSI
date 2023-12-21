@@ -10,11 +10,10 @@ class Tuteur extends Utilisateur
     private string $prenomTuteur;
     private string $telTuteur;
     private string $mailTuteur;
-    private string $eleveTuteur;
 
     private string $cheminPhoto;
 
-    public function __construct(int $idUtilisateur, string $identifiant, string $mdp, string $nomTuteur, string $prenomTuteur, string $telTuteur, string $mailTuteur, string $eleveTuteur, string $cheminPhoto)
+    public function __construct(int $idUtilisateur, string $identifiant, string $mdp, string $nomTuteur, string $prenomTuteur, string $telTuteur, string $mailTuteur, string $cheminPhoto)
     {
         parent::__construct($idUtilisateur, $identifiant, $mdp);
 
@@ -22,7 +21,6 @@ class Tuteur extends Utilisateur
         $this->prenomTuteur = $prenomTuteur;
         $this->telTuteur = $telTuteur;
         $this->mailTuteur = $mailTuteur;
-        $this->eleveTuteur = $eleveTuteur;
         $this->cheminPhoto = $cheminPhoto;
     }
 
@@ -65,16 +63,6 @@ class Tuteur extends Utilisateur
     public function setMailTuteur(string $mailTuteur): void
     {
         $this->mailTuteur = $mailTuteur;
-    }
-
-    public function getEleveTuteur(): string
-    {
-        return $this->eleveTuteur;
-    }
-
-    public function setEleveTuteur(string $eleveTuteur): void
-    {
-        $this->eleveTuteur = $eleveTuteur;
     }
 
     public function getCheminPhoto(): string
