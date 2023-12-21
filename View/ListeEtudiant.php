@@ -65,13 +65,22 @@ use DAO\EleveDAO;
 
                             if(isset($_GET['Rechercher'])) {
                                 $filtervalues = $_GET['Rechercher'];
-                                $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe 
-                  FROM Etudiant 
-                  INNER JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
-                  INNER JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn 
-                  INNER JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux 
-                  INNER JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
-                  WHERE CONCAT(Etudiant.nomEtu, Etudiant.preEtu, Etudiant.idClasse, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe) LIKE ?";
+                                $query = $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe 
+          FROM Etudiant 
+          INNER JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
+          LEFT JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn 
+          LEFT JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux 
+          INNER JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
+          WHERE CONCAT(
+              COALESCE(Etudiant.nomEtu, ''),
+              COALESCE(Etudiant.preEtu, ''),
+              COALESCE(Etudiant.idClasse, ''),
+              COALESCE(Classe.nomClasse, ''),
+              COALESCE(bilanun.rqBilanUn, ''),
+              COALESCE(bilandeux.rqBilanDeux, ''),
+              COALESCE(Specialisation.nomSpe, '')
+          ) LIKE ?";
+
                                 $statement = $pdo->prepare($query);
                                 $statement->execute(["%$filtervalues%"]);
                                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -89,6 +98,7 @@ use DAO\EleveDAO;
                                         </tr>
                                         <?php
                                     }
+
                                 } else {
                                     ?>
                                     <tr>
