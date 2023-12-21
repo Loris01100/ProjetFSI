@@ -6,7 +6,9 @@ require_once '../config/globalConfig.php';
 use BO\Eleve;
 use DAO\EleveDAO;
 
-
+$dsn = "{$infoBdd['type']}:host={$infoBdd['host']};dbname={$infoBdd['dbname']};charset={$infoBdd['charset']}";
+$pdo = new PDO($dsn, $infoBdd['user'], $infoBdd['pass']);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // Instancier la classe EleveDAO
 $eleveDAO = new \DAO\EleveDAO($pdo);
 
