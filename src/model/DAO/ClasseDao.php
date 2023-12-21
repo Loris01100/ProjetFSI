@@ -28,6 +28,22 @@ class ClasseDao
 
         return $cla;
     }
+    public function getById($id)
+    {
+        $query = "SELECT * FROM Classe WHERE idClasse = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return new Classe($row['idClasse'], $row['nomClasse']);
+        }
+
+        return null;
+    }
+
     public function addClasse(Classe $classe)
     {
         $query = "INSERT INTO Classe (nomClasse) VALUES (:nomC)";

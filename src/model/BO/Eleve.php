@@ -10,6 +10,7 @@ class Eleve
     private int $telEleve;
     private string $mailEleve;
     private string $entrepriseEleve;
+    private Classe $idClasse;
 
     public function __construct(int $idEleve, string $nomEleve, string $prenomEleve, int $telEleve, string $mailEleve, string $entrepriseEleve)
     {
@@ -79,5 +80,14 @@ class Eleve
     public function setEntrepriseEleve(string $entrepriseEleve): void
     {
         $this->entrepriseEleve = $entrepriseEleve;
+    }
+    public function getIdClasse(): Classe
+    {
+        return $this->idClasse;
+    }
+
+    public function setIdClasse(Classe $idClasse): void
+    {
+        $this->idClasse = $idClasse;
     }
 }

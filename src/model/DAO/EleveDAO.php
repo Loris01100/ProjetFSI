@@ -4,6 +4,8 @@ namespace DAO;
 
 use PDO;
 use BO\Eleve;
+use DAO\ClasseDao;
+use BO\Classe;
 
 class EleveDAO
 {
@@ -66,4 +68,78 @@ class EleveDAO
         $statement->bindValue(':id', $idEleve);
         $statement->execute();
     }
+
+    public function getAllelevesSansBilanUn()
+    {
+        $query = "SELECT e.*, dlbu.dateLimiteUn 
+              FROM etudiant e, datelimitebilanun dlbu, bilanun bu 
+              WHERE (e.idBilanUn IS NULL AND dlbu.dateLimiteUn < CURRENT_DATE) 
+                    OR (e.idBilanUn = bu.idBilanUn AND bu.noteDossierUn IS NULL AND dlbu.dateLimiteUn < CURRENT_DATE) 
+              GROUP By e.nomEtu;";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $eleves = [];
+        $classeDao = new ClasseDao($this->pdo);
+
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $idClasse = $row['idClasse'];
+            $classe = $classeDao->getById($idClasse);
+
+            $eleve = new Eleve(
+                $row['numEtu'],
+                $row['nomEtu'],
+                $row['preEtu'],
+                0,
+                $row['mailEtu'],
+                '',
+                $row['dateLimiteUn']
+            );
+
+            $eleve->setIdClasse($classe);
+
+            $eleves[] = $eleve;
+        }
+
+        return $eleves;
+    }
+
+    public function getAllelevesSansBilanDeux()
+    {
+        $query = "SELECT e.*, dlbd.dateLimiteDeux 
+              FROM etudiant e, datelimitebilandeux dlbd, bilandeux bd 
+              WHERE (e.idBilanDeux IS NULL AND dlbd.dateLimiteDeux < CURRENT_DATE) 
+                    OR (e.idBilanDeux = bd.idBilanDeux AND bd.noteDossierDeux IS NULL AND dlbd.dateLimiteDeux < CURRENT_DATE) 
+              GROUP BY e.nomEtu, dlbd.dateLimiteDeux;";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+
+        $eleves = [];
+        $classeDao = new ClasseDao($this->pdo);
+
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $idClasse = $row['idClasse'];
+            $classe = $classeDao->getById($idClasse);
+
+            $eleve = new Eleve(
+                $row['numEtu'],
+                $row['nomEtu'],
+                $row['preEtu'],
+                0,
+                $row['mailEtu'],
+                '',
+                $row['dateLimiteDeux']
+            );
+
+            $eleve->setIdClasse($classe);
+
+            $eleves[] = $eleve;
+        }
+
+        return $eleves;
+    }
+
+
 }
