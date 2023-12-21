@@ -10,6 +10,8 @@ class Eleve
     private int $telEleve;
     private string $mailEleve;
     private string $entrepriseEleve;
+    private Classe $idClasse;
+    private Tuteur $numTuteur;
 
     public function __construct(int $idEleve, string $nomEleve, string $prenomEleve, int $telEleve, string $mailEleve, string $entrepriseEleve)
     {
@@ -80,4 +82,31 @@ class Eleve
     {
         $this->entrepriseEleve = $entrepriseEleve;
     }
+    public function getIdClasse(): Classe
+    {
+        return $this->idClasse;
+    }
+
+    public function setIdClasse(Classe $idClasse): void
+    {
+        $this->idClasse = $idClasse;
+    }
+
+    /**
+     * @return Tuteur
+     */
+    public function getNumTuteur(): Tuteur
+    {
+        return $this->numTuteur;
+    }
+
+    /**
+     * @param Tuteur $numTuteur
+     */
+    public function setNumTuteur(Tuteur $numTuteur): void
+    {
+        $this->numTuteur = $numTuteur;
+    }
+
+
 }
