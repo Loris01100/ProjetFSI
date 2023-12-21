@@ -2,6 +2,9 @@
 
 require_once '../config/appConfig.php';
 require_once '../src/model/DAO/EleveDAO.php';
+require_once '../config/globalConfig.php';
+
+use DAO\EleveDAO;
 ?>
 
 <!doctype html>
@@ -57,13 +60,12 @@ require_once '../src/model/DAO/EleveDAO.php';
                         </thead>
                         <tbody>
                         <?php
-                        $con = mysqli_connect("localhost","root","","projetfsi");
 
                         if(isset($_GET['soumettre']))
                         {
                             $filtervalues = $_GET['soumettre'];
                             $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe FROM Etudiant INNER JOIN Classe ON Etudiant.idClasse = Classe.idClasse INNER JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn INNER JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux INNER JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe WHERE CONCAT(Etudiant.nomEtu, Etudiant.preEtu, Etudiant.idClasse, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe) LIKE '%$filtervalues%'";
-                            $query_run = mysqli_query($con, $query);
+                            $query_run = pdo_query($pdo, $query);
 
                             if(mysqli_num_rows($query_run) > 0)
                             {
