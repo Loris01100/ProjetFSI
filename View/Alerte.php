@@ -38,17 +38,25 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
             margin-bottom: 20px;
         }
 
-        .alert-list {
-            list-style: none;
-            padding: 0;
+        .alert-table {
+            width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            border-collapse: collapse;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
         }
 
-        .alert-item {
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #ffffff;
+        .alert-table th, .alert-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .alert-table th {
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 2px solid #dee2e6;
         }
     </style>
 </head>
@@ -60,13 +68,26 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
         <div class="col-md-6">
             <h2 class="alert-heading">Élèves sans Bilan Un</h2>
             <?php if (!empty($elevesSansBilanUn)) : ?>
-                <ul class="alert-list">
+                <table class="alert-table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Classe</th>
+                        <th>Tuteur</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <?php foreach ($elevesSansBilanUn as $eleve) : ?>
-                        <li class="alert-item">
-                            <strong><?= $eleve->getNomEleve(); ?> <?= $eleve->getPrenomEleve(); ?> - <?= $eleve->getIdClasse()->getNomClasse(); ?></strong>
-                        </li>
+                        <tr>
+                            <td><?= $eleve->getNomEleve(); ?></td>
+                            <td><?= $eleve->getPrenomEleve(); ?></td>
+                            <td><?= $eleve->getIdClasse()->getNomClasse(); ?></td>
+                            <td><?= $eleve->getNumTuteur()->getNomTuteur();?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </ul>
+                    </tbody>
+                </table>
             <?php else : ?>
                 <p class="alert alert-info">Aucun élève sans Bilan Un trouvé.</p>
             <?php endif; ?>
@@ -75,13 +96,26 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
         <div class="col-md-6">
             <h2 class="alert-heading">Élèves sans Bilan Deux</h2>
             <?php if (!empty($elevesSansBilanDeux)) : ?>
-                <ul class="alert-list">
+                <table class="alert-table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Classe</th>
+                        <th>Tuteur</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <?php foreach ($elevesSansBilanDeux as $eleve) : ?>
-                        <li class="alert-item">
-                            <strong><?= $eleve->getNomEleve(); ?> <?= $eleve->getPrenomEleve(); ?> - <?= $eleve->getIdClasse()->getNomClasse(); ?></strong>
-                        </li>
+                        <tr>
+                            <td><?= $eleve->getNomEleve(); ?></td>
+                            <td><?= $eleve->getPrenomEleve(); ?></td>
+                            <td><?= $eleve->getIdClasse()->getNomClasse(); ?></td>
+                            <td><?= $eleve->getNumTuteur()->getNomTuteur();?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </ul>
+                    </tbody>
+                </table>
             <?php else : ?>
                 <p class="alert alert-info">Aucun élève sans Bilan Deux trouvé.</p>
             <?php endif; ?>
@@ -95,4 +129,3 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
-

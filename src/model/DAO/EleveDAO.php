@@ -82,10 +82,13 @@ class EleveDAO
 
         $eleves = [];
         $classeDao = new ClasseDao($this->pdo);
+        $tuteurDAO = new TuteurDAO($this->pdo);
 
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $idClasse = $row['idClasse'];
             $classe = $classeDao->getById($idClasse);
+            $idTuteur = $row['numTutEco'];
+            $tuteur = $tuteurDAO->getById($idTuteur);
 
             $eleve = new Eleve(
                 $row['numEtu'],
@@ -96,7 +99,7 @@ class EleveDAO
                 '',
                 $row['dateLimiteUn']
             );
-
+            $eleve->setNumTuteur($tuteur);
             $eleve->setIdClasse($classe);
 
             $eleves[] = $eleve;
@@ -118,10 +121,13 @@ class EleveDAO
 
         $eleves = [];
         $classeDao = new ClasseDao($this->pdo);
+        $tuteurDAO = new TuteurDAO($this->pdo);
 
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $idClasse = $row['idClasse'];
             $classe = $classeDao->getById($idClasse);
+            $idTuteur = $row['numTutEco'];
+            $tuteur = $tuteurDAO->getById($idTuteur);
 
             $eleve = new Eleve(
                 $row['numEtu'],
@@ -132,7 +138,7 @@ class EleveDAO
                 '',
                 $row['dateLimiteDeux']
             );
-
+            $eleve->setNumTuteur($tuteur);
             $eleve->setIdClasse($classe);
 
             $eleves[] = $eleve;

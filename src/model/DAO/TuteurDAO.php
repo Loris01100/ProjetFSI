@@ -105,4 +105,32 @@ class TuteurDAO
 
         return $tuteurs;
     }
+
+    public function getById(int $id)
+    {
+        $query = "SELECT * FROM TuteurEcole WHERE numTutEco = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        $tuteur = new Tuteur(
+            $row['numTutEco'],
+            '',
+            '',
+            $row['nomTutEco'],
+            $row['preTutEco'],
+            $row['telTutEco'],
+            $row['mailTutEco'],
+            ''
+        );
+
+        return $tuteur;
+    }
+
 }
