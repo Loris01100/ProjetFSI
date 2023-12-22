@@ -16,8 +16,7 @@ class TuteurDAO
 
     public function create(Tuteur $tuteur)
     {
-        $query = "INSERT INTO TuteurEcole (nomTutEco, preTutEco, telTutEco, mailTutEco, privilegeTutEco, cheminPhoto, idUtilisateur) 
-                  VALUES (:nom, :prenom, :telephone, :email, :privilege, :cheminPhoto, :idUtilisateur)";
+
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':nom', $tuteur->getNomTuteur());
         $statement->bindValue(':prenom', $tuteur->getPrenomTuteur());

@@ -11,7 +11,9 @@ use DAO\EleveDAO;
 $eleveDAO = new EleveDAO($pdo);
 
 
-$eleve = new Eleve(3, 'Salam', 'Alikoum', 1234567890, 'dsqdsd@dsqd.com', 'EnterpriseX');
+$eleve = new Eleve(3, 'Winny', "L'Ourson", 1234567890, 'dsqdsd@dsqd.com', 'MielPops');
+
+
 
 
 $eleveId = $eleveDAO->addEleve($eleve);
@@ -27,5 +29,3 @@ $eleveDAO->updateEleve($eleve);
 echo "Eleve modifié.\n";
 
 
-$eleveDAO->deleteEleve($eleveId);
-echo "Eleve supprimé.\n";

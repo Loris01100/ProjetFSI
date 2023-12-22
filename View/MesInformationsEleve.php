@@ -5,7 +5,7 @@ require_once "../config/globalConfig.php";
 use DAO\EleveDAO;
 
 $etudiantDAO = new EleveDAO($pdo);
-$idEtudiant = 6;
+$idEtudiant = 33;
 $etudiant = $etudiantDAO->read($idEtudiant);
 
 ?>
