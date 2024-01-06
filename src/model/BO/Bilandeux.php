@@ -31,7 +31,7 @@ class Bilandeux
         $this->idBilanDeux = $idBilanDeux;
     }
 
-    public function getNoteOralDeux(): int
+    public function getNoteOralDeux(): ?float
     {
         return $this->noteOralDeux;
     }
@@ -41,7 +41,7 @@ class Bilandeux
         $this->noteOralDeux = $noteOralDeux;
     }
 
-    public function getNoteDossierDeux(): int
+    public function getNoteDossierDeux(): ?float
     {
         return $this->noteDossierDeux;
     }
@@ -51,7 +51,7 @@ class Bilandeux
         $this->noteDossierDeux = $noteDossierDeux;
     }
 
-    public function getDateBilanDeux(): \DateTime
+    public function getDateBilanDeux(): ?\DateTime
     {
         return $this->dateBilanDeux;
     }
@@ -61,7 +61,7 @@ class Bilandeux
         $this->dateBilanDeux = $dateBilanDeux;
     }
 
-    public function getRqBilanDeux(): string
+    public function getRqBilanDeux(): ?string
     {
         return $this->rqBilanDeux;
     }
@@ -71,7 +71,7 @@ class Bilandeux
         $this->rqBilanDeux = $rqBilanDeux;
     }
 
-    public function getSujetMemoire(): string
+    public function getSujetMemoire(): ?string
     {
         return $this->sujetMemoire;
     }

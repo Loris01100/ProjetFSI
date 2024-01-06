@@ -78,6 +78,29 @@ class BilanUnDao
         $statement->execute();
     }
 
+    public function read(int $id){
+        $query = "SELECT * FROM bilanun WHERE idBilanUn = :id;";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if($data){
+            $datebilanUn = new DateTime($data["dateBilanUn"]);
+            $bilanUn = new Bilanun(
+                $data["idBilanUn"],
+                $data["noteEts"],
+                $datebilanUn,
+                $data["noteDossierUn"],
+                $data["noteOralUn"],
+                $data["rqBilanUn"]
+            );
+            return $bilanUn;
+        }
+        return null;
+    }
+
+
+
 
 
 }

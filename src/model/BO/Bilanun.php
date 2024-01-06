@@ -35,7 +35,7 @@ class Bilanun
         $this->idBilanUn = $idBilanUn;
     }
 
-    public function getNoteEts(): int
+    public function getNoteEts(): ?float
     {
         return $this->noteEts;
     }
@@ -45,7 +45,7 @@ class Bilanun
         $this->noteEts = $noteEts;
     }
 
-    public function getDateBilanUn(): \DateTime
+    public function getDateBilanUn(): ?\DateTime
     {
         return $this->dateBilanUn;
     }
@@ -55,7 +55,7 @@ class Bilanun
         $this->dateBilanUn = $dateBilanUn;
     }
 
-    public function getNoteDossierUn(): int
+    public function getNoteDossierUn(): ?float
     {
         return $this->noteDossierUn;
     }
@@ -65,7 +65,7 @@ class Bilanun
         $this->noteDossierUn = $noteDossierUn;
     }
 
-    public function getNoteOralUn(): int
+    public function getNoteOralUn(): ?float
     {
         return $this->noteOralUn;
     }
@@ -75,7 +75,7 @@ class Bilanun
         $this->noteOralUn = $noteOralUn;
     }
 
-    public function getRqBilanUn(): string
+    public function getRqBilanUn(): ?string
     {
         return $this->rqBilanUn;
     }

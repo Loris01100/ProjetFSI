@@ -7,6 +7,7 @@ use DAO\ClasseDao;
 use BO\Classe;
 use DAO\TuteurDAO;
 use BO\Tuteur;
+use BO\Bilanun;
 
 class EleveDAO
 {
@@ -166,6 +167,36 @@ class EleveDAO
             return $eleve;
         }
 
+        return null;
+    }
+
+
+
+    public function getallBilanDeuxByEtu(int $idEleve){
+        $query = "SELECT e.idBilanDeux FROM etudiant e WHERE e.numEtu = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idEleve);
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if($data && $data["idBilanDeux"] !== null){
+            $idBilanDeux = $data["idBilanDeux"];
+            $bilandDeuxDAO = new BilanDeuxDao($this->pdo);
+            return $bilandDeuxDAO->read($idBilanDeux);
+        }
+        return null;
+    }
+
+    public function getallBilanUnByEtu(int $idEleve){
+        $query = "SELECT e.idBilanUn FROM etudiant e WHERE e.numEtu = :id;";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':id', $idEleve);
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if($data && $data["idBilanUn"] !== null){
+            $idBilanUn = $data["idBilanUn"];
+            $bilanUnDAO = new BilanUnDao($this->pdo);
+            return $bilanUnDAO->read($idBilanUn);
+        }
         return null;
     }
 

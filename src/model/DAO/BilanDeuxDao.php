@@ -70,4 +70,25 @@ class BilanDeuxDao
         $statement->bindValue(':idB2', $bilan2->getIdBilanDeux());
         $statement->execute();
     }
+
+    public function read(int $id){
+        $query="SELECT * FROM bilandeux WHERE idBilanDeux = :id;";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id',$id,PDO::PARAM_INT);
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if($data){
+            $datebilandeux = new \DateTime($data["dateBilanDeux"]);
+            $bilanDeux = new Bilandeux(
+                $data["idBilanDeux"],
+                $data["noteOralDeux"],
+                $data["noteDossierDeux"],
+                $datebilandeux,
+                $data["rqBilanDeux"],
+                $data["sujetMemoire"]
+            );
+            return $bilanDeux;
+        }
+        return null;
+    }
 }
