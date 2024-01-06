@@ -6,6 +6,7 @@ use BO\Utilisateur;
 
 class Tuteur extends Utilisateur
 {
+    private int $numTutEco;
     private string $nomTuteur;
     private string $prenomTuteur;
     private string $telTuteur;

@@ -1,11 +1,12 @@
 <?php
-
 namespace DAO;
 
 use PDO;
 use BO\Eleve;
 use DAO\ClasseDao;
 use BO\Classe;
+use DAO\TuteurDAO;
+use BO\Tuteur;
 
 class EleveDAO
 {
@@ -71,11 +72,10 @@ class EleveDAO
 
     public function getAllelevesSansBilanUn()
     {
-        $query = "SELECT e.*, dlbu.dateLimiteUn 
-              FROM etudiant e, datelimitebilanun dlbu, bilanun bu 
-              WHERE (e.idBilanUn IS NULL AND dlbu.dateLimiteUn < CURRENT_DATE) 
-                    OR (e.idBilanUn = bu.idBilanUn AND bu.noteDossierUn IS NULL AND dlbu.dateLimiteUn < CURRENT_DATE) 
-              GROUP By e.nomEtu;";
+        $query = "SELECT e.* FROM etudiant e 
+    LEFT JOIN bilanun bu ON e.idBilanUn = bu.idBilanUn 
+    LEFT JOIN datelimitebilanun dlbu ON bu.idDateLimiteBilanUn = dlbu.idDateLimiteBilanUn AND dlbu.dateLimiteUn < CURRENT_DATE
+                WHERE e.idBilanUn IS NULL or bu.noteDossierUn IS NULL;";
 
         $statement = $this->pdo->prepare($query);
         $statement->execute();
@@ -87,8 +87,8 @@ class EleveDAO
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $idClasse = $row['idClasse'];
             $classe = $classeDao->getById($idClasse);
-            $idTuteur = $row['numTutEco'];
-            $tuteur = $tuteurDAO->getById($idTuteur);
+             $idTuteur = $row['numTutEco'];
+            $tuteur = $tuteurDAO->read($idTuteur);
 
             $eleve = new Eleve(
                 $row['numEtu'],
@@ -96,8 +96,7 @@ class EleveDAO
                 $row['preEtu'],
                 0,
                 $row['mailEtu'],
-                '',
-                $row['dateLimiteUn']
+                ''
             );
             $eleve->setNumTuteur($tuteur);
             $eleve->setIdClasse($classe);
@@ -110,11 +109,10 @@ class EleveDAO
 
     public function getAllelevesSansBilanDeux()
     {
-        $query = "SELECT e.*, dlbd.dateLimiteDeux 
-              FROM etudiant e, datelimitebilandeux dlbd, bilandeux bd 
-              WHERE (e.idBilanDeux IS NULL AND dlbd.dateLimiteDeux < CURRENT_DATE) 
-                    OR (e.idBilanDeux = bd.idBilanDeux AND bd.noteDossierDeux IS NULL AND dlbd.dateLimiteDeux < CURRENT_DATE) 
-              GROUP BY e.nomEtu, dlbd.dateLimiteDeux;";
+        $query = "SELECT e.* FROM etudiant e 
+    LEFT JOIN bilandeux bd ON e.idBilanUn = bd.idBilanDeux 
+    LEFT JOIN datelimitebilandeux dlbd ON bd.idDateLimiteBilanDeux = dlbd.idDateLimiteBilanDeux AND dlbd.dateLimiteDeux < CURRENT_DATE
+                WHERE e.idBilanUn IS NULL or bd.noteDossierDeux IS NULL;";
 
         $statement = $this->pdo->prepare($query);
         $statement->execute();
@@ -127,7 +125,7 @@ class EleveDAO
             $idClasse = $row['idClasse'];
             $classe = $classeDao->getById($idClasse);
             $idTuteur = $row['numTutEco'];
-            $tuteur = $tuteurDAO->getById($idTuteur);
+            $tuteur = $tuteurDAO->read($idTuteur);
 
             $eleve = new Eleve(
                 $row['numEtu'],
@@ -135,8 +133,7 @@ class EleveDAO
                 $row['preEtu'],
                 0,
                 $row['mailEtu'],
-                '',
-                $row['dateLimiteDeux']
+                ''
             );
             $eleve->setNumTuteur($tuteur);
             $eleve->setIdClasse($classe);

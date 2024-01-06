@@ -16,7 +16,8 @@ class TuteurDAO
 
     public function create(Tuteur $tuteur)
     {
-
+        $query = "INSERT INTO TuteurEcole (nomTutEco, preTutEco, telTutEco, mailTutEco, privilegeTutEco, cheminPhoto, idUtilisateur) 
+                  VALUES (:nom, :prenom, :telephone, :email, :privilege, :cheminPhoto, :idUtilisateur)";
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':nom', $tuteur->getNomTuteur());
         $statement->bindValue(':prenom', $tuteur->getPrenomTuteur());
@@ -106,31 +107,5 @@ class TuteurDAO
         return $tuteurs;
     }
 
-    public function getById(int $id)
-    {
-        $query = "SELECT * FROM TuteurEcole WHERE numTutEco = :id";
-        $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        $statement->execute();
-
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-        if (!$row) {
-            return null;
-        }
-
-        $tuteur = new Tuteur(
-            $row['numTutEco'],
-            '',
-            '',
-            $row['nomTutEco'],
-            $row['preTutEco'],
-            $row['telTutEco'],
-            $row['mailTutEco'],
-            ''
-        );
-
-        return $tuteur;
-    }
 
 }

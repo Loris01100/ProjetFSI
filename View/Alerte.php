@@ -18,14 +18,15 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Alertes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f0f4f8;
         }
 
         .alert-section {
@@ -34,39 +35,53 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
 
         .alert-heading {
             text-align: center;
-            font-size: 24px;
+            font-size: 2rem;
             margin-bottom: 20px;
+            color: #2a4365; /* Bleu foncé */
         }
 
         .alert-table {
             width: 100%;
             margin-bottom: 1rem;
-            background-color: transparent;
+            background-color: #fff;
             border-collapse: collapse;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
         }
 
-        .alert-table th, .alert-table td {
+        .alert-table th,
+        .alert-table td {
             padding: 0.75rem;
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .alert-table th {
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-            border-bottom: 2px solid #dee2e6;
+            background-color: #cbd5e0; /* Gris-bleu */
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 2px solid #a0aec0; /* Gris-bleu plus foncé */
+            color: #2a4365; /* Bleu foncé */
+        }
+
+        .alert-info {
+            background-color: #ebf8ff; /* Bleu clair */
+            color: #2a4365; /* Bleu foncé */
+            border: 1px solid #90cdf4; /* Bleu clair plus foncé */
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
-<body class="container">
-<div class="alert-section">
-    <h1 class="alert-heading">Mes Alertes</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h2 class="alert-heading">Élèves sans Bilan Un</h2>
+<body class="container mx-auto p-4">
+<div class="alert-section">
+    <h1 class="alert-heading font-bold mb-8">Mes Alertes</h1>
+
+    <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/2 px-4 mb-8">
+            <h2 class="alert-heading font-bold mb-4">Élèves sans Bilan Un</h2>
             <?php if (!empty($elevesSansBilanUn)) : ?>
                 <table class="alert-table">
                     <thead>
@@ -83,18 +98,18 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
                             <td><?= $eleve->getNomEleve(); ?></td>
                             <td><?= $eleve->getPrenomEleve(); ?></td>
                             <td><?= $eleve->getIdClasse()->getNomClasse(); ?></td>
-                            <td><?= $eleve->getNumTuteur()->getNomTuteur();?></td>
+                            <td><?= $eleve->getNumTuteur()->getNomTuteur(); ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
             <?php else : ?>
-                <p class="alert alert-info">Aucun élève sans Bilan Un trouvé.</p>
+                <p class="alert-info">Aucun élève sans Bilan Un trouvé.</p>
             <?php endif; ?>
         </div>
 
-        <div class="col-md-6">
-            <h2 class="alert-heading">Élèves sans Bilan Deux</h2>
+        <div class="w-full md:w-1/2 px-4 mb-8">
+            <h2 class="alert-heading font-bold mb-4">Élèves sans Bilan Deux</h2>
             <?php if (!empty($elevesSansBilanDeux)) : ?>
                 <table class="alert-table">
                     <thead>
@@ -111,13 +126,13 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
                             <td><?= $eleve->getNomEleve(); ?></td>
                             <td><?= $eleve->getPrenomEleve(); ?></td>
                             <td><?= $eleve->getIdClasse()->getNomClasse(); ?></td>
-                            <td><?= $eleve->getNumTuteur()->getNomTuteur();?></td>
+                            <td><?= $eleve->getNumTuteur()->getNomTuteur(); ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
             <?php else : ?>
-                <p class="alert alert-info">Aucun élève sans Bilan Deux trouvé.</p>
+                <p class="alert-info">Aucun élève sans Bilan Deux trouvé.</p>
             <?php endif; ?>
         </div>
     </div>
@@ -128,4 +143,6 @@ $elevesSansBilanDeux = $eleveDAO->getAllelevesSansBilanDeux();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
