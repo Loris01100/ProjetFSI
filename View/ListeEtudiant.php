@@ -1,10 +1,31 @@
 <?php
 require_once '../config/appConfig.php';
+require_once '../config/globalConfig.php';
 use DAO\EleveDAO;
+use BO\Eleve;
 
+try {
+    // Créez une instance de PDO en utilisant les informations de la configuration
+    $dsn = "{$infoBdd['type']}:host={$infoBdd['host']};dbname={$infoBdd['dbname']};charset={$infoBdd['charset']}";
+    $pdo = new PDO($dsn, $infoBdd['user'], $infoBdd['pass']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Créez une instance de la DAO EleveDAO en lui passant la connexion PDO
+    $eleveDAO = new EleveDAO($pdo);
+
+    $results = [];
+
+    if (isset($_GET['Rechercher'])) {
+        $filtervalues = $_GET['Rechercher'];
+        $results = $eleveDAO->getListeEtu($filtervalues);
+    }
+
+} catch (PDOException $e) {
+    echo "Erreur de connexion : " . $e->getMessage();
+}
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -47,67 +68,33 @@ use DAO\EleveDAO;
                         <thead>
                         <tr>
                             <th>Nom</th>
-                            <th>Prenom</th>
+                            <th>Prénom</th>
                             <th>Classe</th>
-                            <th>Bilan 1</th>
-                            <th>Bilan 2</th>
                             <th>Spécialisation</th>
                             <th></th>
-
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        try {
-                            $dsn = "{$infoBdd['type']}:host={$infoBdd['host']};dbname={$infoBdd['dbname']};charset={$infoBdd['charset']}";
-                            $pdo = new PDO($dsn, $infoBdd['user'], $infoBdd['pass']);
-                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                            if(isset($_GET['Rechercher'])) {
-                                $filtervalues = $_GET['Rechercher'];
-                                $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, bilanun.rqBilanUn, bilandeux.rqBilanDeux, Specialisation.nomSpe 
-          FROM Etudiant 
-          LEFT JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
-          LEFT JOIN bilanun ON Etudiant.idBilanUn = bilanun.idBilanUn 
-          LEFT JOIN bilandeux ON Etudiant.idBilanDeux = bilandeux.idBilanDeux 
-          LEFT JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
-          WHERE CONCAT(
-              COALESCE(Etudiant.nomEtu, ''),
-              COALESCE(Etudiant.preEtu, ''),
-              COALESCE(Classe.nomClasse, ''),
-              COALESCE(bilanun.rqBilanUn, ''),
-              COALESCE(bilandeux.rqBilanDeux, ''),
-              COALESCE(Specialisation.nomSpe, '')
-          ) LIKE ?";
-
-                                $statement = $pdo->prepare($query);
-                                $statement->execute(["%$filtervalues%"]);
-                                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-                                if ($results && count($results) > 0) {
-                                    foreach ($results as $items) {
-                                        ?>
-                                        <tr>
-                                            <td><?= $items['nomEtu']; ?></td>
-                                            <td><?= $items['preEtu']; ?></td>
-                                            <td><?= $items['nomClasse']; ?></td>
-                                            <td><?= $items['rqBilanUn']; ?></td>
-                                            <td><?= $items['rqBilanDeux']; ?></td>
-                                            <td><?= $items['nomSpe']; ?></td>
-                                            <td><a href="DétailEtudiant.php">Consulter</a></td>
-                                        </tr>
-                                        <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="4">Aucun étudiant trouvé</td>
-                                    </tr>
-                                    <?php
-                                }
+                        // Affichage des résultats dans le tableau HTML
+                        if ($results && count($results) > 0) {
+                            foreach ($results as $items) {
+                                ?>
+                                <tr>
+                                    <td><?= $items['nomEtu']; ?></td>
+                                    <td><?= $items['preEtu']; ?></td>
+                                    <td><?= $items['nomClasse']; ?></td>
+                                    <td><?= $items['nomSpe']; ?></td>
+                                    <td><a href="DétailEtudiant.php?id=<?= $items['numEtu']; ?>">Consulter</a></td>
+                                </tr>
+                                <?php
                             }
-                        } catch (PDOException $e) {
-                            echo "Erreur de connexion : " . $e->getMessage();
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="7">Aucun étudiant trouvé</td>
+                            </tr>
+                            <?php
                         }
                         ?>
                         </tbody>
@@ -116,9 +103,7 @@ use DAO\EleveDAO;
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

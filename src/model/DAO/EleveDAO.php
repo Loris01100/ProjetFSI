@@ -200,6 +200,26 @@ class EleveDAO
         return null;
     }
 
+    public function getListeEtu(string $filtervalues)
+    {
+            $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, Specialisation.nomSpe, Etudiant.numEtu 
+                FROM Etudiant 
+                LEFT JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
+                LEFT JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
+                WHERE CONCAT(
+                    COALESCE(Etudiant.nomEtu, ''),
+                    COALESCE(Etudiant.preEtu, ''),
+                    COALESCE(Classe.nomClasse, ''),
+                    COALESCE(Specialisation.nomSpe, '')
+                ) LIKE ?";
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute(["%$filtervalues%"]);
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            return $results;
+    }
+
 
 
 }
