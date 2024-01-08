@@ -172,31 +172,55 @@ class EleveDAO
 
 
 
-    public function getallBilanDeuxByEtu(int $idEleve){
-        $query = "SELECT e.idBilanDeux FROM etudiant e WHERE e.numEtu = :id";
+    public function getallBilanDeuxByEtu(int $idEleve) {
+        $query = "SELECT * FROM Etudiant e 
+              LEFT JOIN BilanDeux b ON e.idBilanDeux = b.idBilanDeux 
+              WHERE e.numEtu = :id";
+
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':id', $idEleve);
+        $statement->bindValue(':id', $idEleve, PDO::PARAM_INT);
         $statement->execute();
+
         $data = $statement->fetch(PDO::FETCH_ASSOC);
-        if($data && $data["idBilanDeux"] !== null){
-            $idBilanDeux = $data["idBilanDeux"];
-            $bilandDeuxDAO = new BilanDeuxDao($this->pdo);
-            return $bilandDeuxDAO->read($idBilanDeux);
+        if ($data && $data['idBilanDeux'] !== null) {
+            $bilanDeux = new \BO\Bilandeux(
+                $data['idBilanDeux'],
+                $data['noteOralDeux'],
+                $data['noteDossierDeux'],
+                new \DateTime($data['dateBilanDeux']),
+                $data['rqBilanDeux'],
+                $data['sujetMemoire']
+            );
+            return $bilanDeux;
         }
+
         return null;
     }
 
-    public function getallBilanUnByEtu(int $idEleve){
-        $query = "SELECT e.idBilanUn FROM etudiant e WHERE e.numEtu = :id;";
+
+    public function getallBilanUnByEtu(int $idEleve) {
+
+        $query = "SELECT * FROM Etudiant e 
+              LEFT JOIN BilanUn b ON e.idBilanUn = b.idBilanUn 
+              WHERE e.numEtu = :id";
+
         $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':id', $idEleve);
+        $statement->bindValue(':id', $idEleve, PDO::PARAM_INT);
         $statement->execute();
+
         $data = $statement->fetch(PDO::FETCH_ASSOC);
-        if($data && $data["idBilanUn"] !== null){
-            $idBilanUn = $data["idBilanUn"];
-            $bilanUnDAO = new BilanUnDao($this->pdo);
-            return $bilanUnDAO->read($idBilanUn);
+        if ($data && $data['idBilanUn'] !== null) {
+            $bilanUn = new \BO\Bilanun(
+                $data['idBilanUn'],
+                $data['noteEts'],
+                new \DateTime($data['dateBilanUn']),
+                $data['noteDossierUn'],
+                $data['noteOralUn'],
+                $data['rqBilanUn']
+            );
+            return $bilanUn;
         }
+
         return null;
     }
 
@@ -219,6 +243,7 @@ class EleveDAO
 
             return $results;
     }
+
 
 
 
