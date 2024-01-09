@@ -226,13 +226,14 @@ class EleveDAO
 
     public function getListeEtu(string $filtervalues)
     {
-            $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Classe.nomClasse, Specialisation.nomSpe, Etudiant.numEtu 
+            $query = "SELECT Etudiant.nomEtu, Etudiant.preEtu, Etudiant.mailEtu, Classe.nomClasse, Specialisation.nomSpe, Etudiant.numEtu 
                 FROM Etudiant 
                 LEFT JOIN Classe ON Etudiant.idClasse = Classe.idClasse 
                 LEFT JOIN Specialisation ON Etudiant.idSpe = Specialisation.idSpe 
                 WHERE CONCAT(
                     COALESCE(Etudiant.nomEtu, ''),
                     COALESCE(Etudiant.preEtu, ''),
+                    COALESCE(Etudiant.mailEtu, ''),
                     COALESCE(Classe.nomClasse, ''),
                     COALESCE(Specialisation.nomSpe, '')
                 ) LIKE ?";

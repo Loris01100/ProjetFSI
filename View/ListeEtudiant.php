@@ -69,6 +69,7 @@ try {
                         <tr>
                             <th>Nom</th>
                             <th>Prénom</th>
+                            <th>Mail</th>
                             <th>Classe</th>
                             <th>Spécialisation</th>
                             <th></th>
@@ -83,6 +84,7 @@ try {
                                 <tr>
                                     <td><?= $items['nomEtu']; ?></td>
                                     <td><?= $items['preEtu']; ?></td>
+                                    <td><?= $items['mailEtu']; ?></td>
                                     <td><?= $items['nomClasse']; ?></td>
                                     <td><?= $items['nomSpe']; ?></td>
                                     <td><a href="DétailEtudiant.php?id=<?= $items['numEtu']; ?>">Consulter</a></td>
