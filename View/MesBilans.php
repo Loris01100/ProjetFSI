@@ -10,10 +10,10 @@ $pdo = new PDO($dsn, $infoBdd['user'], $infoBdd['pass']);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $eleveDAO = new \DAO\EleveDAO($pdo);
+$idEtudiant = isset($_GET['numEtu']) ? (int)$_GET['numEtu'] : null;
+$bilanUn = $eleveDAO->getallBilanUnByEtu($idEtudiant);
 
-$bilanUn = $eleveDAO->getallBilanUnByEtu(10);
-
-$bilanDeux = $eleveDAO->getallBilanDeuxByEtu(10);
+$bilanDeux = $eleveDAO->getallBilanDeuxByEtu($idEtudiant);
 ?>
 <!DOCTYPE html>
 <html lang="en">
